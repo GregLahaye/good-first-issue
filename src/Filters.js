@@ -1,6 +1,6 @@
 import React from "react";
 
-const Filters = ({ handleClick }) => {
+const Filters = ({ language, setLanguage }) => {
   const languages = [
     "JavaScript",
     "TypeScript",
@@ -13,17 +13,29 @@ const Filters = ({ handleClick }) => {
   ];
 
   return (
-    <div>
-      {languages.map((language) => (
-        <button
-          key={language}
-          id={language}
-          onClick={(e) => handleClick(e.target.id)}
-          className="btn btn-secondary m-1 language"
-        >
-          {language}
-        </button>
-      ))}
+    <div className="input-group mb-3">
+      <div className="input-group-prepend">
+        <label htmlFor="language" className="input-group-text">
+          Language
+        </label>
+      </div>
+      <select
+        id="language"
+        value={language}
+        className="custom-select"
+        onChange={(e) => setLanguage(e.target.value)}
+        onBlur={(e) => setLanguage(e.target.value)}
+      >
+        {languages.map((languageStr) => (
+          <option
+            key={languageStr}
+            value={languageStr}
+            className="btn btn-secondary m-1 language"
+          >
+            {languageStr}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };

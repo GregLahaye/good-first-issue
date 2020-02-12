@@ -33,12 +33,17 @@ const Results = ({ language }) => {
     "Loading"
   ) : (
     <div>
-      <h3>{language}</h3>
-      {issues.length === 0
-        ? "No Issues Found"
-        : issues.map((issue) => (
-            <Issue key={issue.id} name={issue.full_name} url={issue.html_url} />
+      {issues.length === 0 ? (
+        "No Issues Found"
+      ) : (
+        <ul className="list-group">
+          {issues.map((issue) => (
+            <li key={issue.id} className="list-group-item">
+              <Issue name={issue.full_name} url={issue.html_url} />
+            </li>
           ))}
+        </ul>
+      )}
     </div>
   );
 };

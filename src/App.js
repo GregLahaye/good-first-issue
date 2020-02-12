@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div>
       <Header />
-      <Filters handleClick={setLanguage} />
+      <Filters language={language} setLanguage={setLanguage} />
       <Results language={language} />
     </div>
   );
