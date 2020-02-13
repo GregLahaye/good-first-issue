@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import { render } from "react-dom";
 import Header from "./Header";
-import Filters from "./Filters";
-import Results from "./Results";
+import Home from "./Home";
+import React from "react";
+import Repository from "./Repository";
+import { Router } from "@reach/router";
+import { render } from "react-dom";
 
 const App = () => {
-  const [language, setLanguage] = useState("JavaScript");
-
   return (
     <div>
       <Header />
-      <Filters language={language} setLanguage={setLanguage} />
-      <Results language={language} />
+      <Router>
+        <Home path="/" />
+        <Repository path="/:owner/:repo" />
+      </Router>
     </div>
   );
 };

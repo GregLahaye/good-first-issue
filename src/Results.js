@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
-import Issue from "./Issue";
+import { Link } from "@reach/router";
+import Loading from "./Loading";
 
 const Results = ({ language }) => {
-  const [issues, setIssues] = useState([]);
+  const [repositories, setRepositories] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const url = new URL("https://api.github.com/search/repositories");
     const params = new URLSearchParams({
-      q: `good-first-issues:>1 language:${language}`,
+      q: `good-first-issues:>2 language:${language}`,
     });
     url.search = params.toString();
 
     setLoading(true);
 
     fetch(url)
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then(
-        (response) => {
-          setIssues(response.items);
+        (json) => {
+          setRepositories(json.items);
           setLoading(false);
         },
         (error, info) => {
@@ -30,18 +31,22 @@ const Results = ({ language }) => {
   }, [language]);
 
   return loading ? (
-    "Loading"
+    <Loading />
   ) : (
     <div>
-      {issues.length === 0 ? (
-        "No Issues Found"
+      {repositories.length === 0 ? (
+        "No Repositories Found"
       ) : (
-        <ul className="list-group">
-          {issues.map((issue) => (
-            <li key={issue.id} className="list-group-item">
-              <Issue name={issue.full_name} url={issue.html_url} />
-            </li>
-          ))}
+        <ul className="list-group list-group-flush">
+          {repositories.map(({ id, owner: { login: owner }, name }) => {
+            const fullName = `${owner}/${name}`;
+
+            return (
+              <li key={id} className="list-group-item">
+                <Link to={fullName}>{fullName}</Link>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

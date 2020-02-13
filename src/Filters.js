@@ -13,7 +13,7 @@ const Filters = ({ language, setLanguage }) => {
   ];
 
   return (
-    <div className="input-group mb-3">
+    <div className="input-group">
       <div className="input-group-prepend">
         <label htmlFor="language" className="input-group-text">
           Language

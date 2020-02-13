@@ -1,12 +1,11 @@
 import React from "react";
 
-const Issue = ({ name, url }) => {
-  const issuePath =
-    '/issues?utf8=✓&q=is:issue+is:open+label:"good+first+issue"';
-
+const Issue = ({ id, title, url }) => {
   return (
     <div>
-      <a href={`${url}${issuePath}`}>{name}</a>
+      <a href={url} target="blank">
+        {title} - #{id}
+      </a>
     </div>
   );
 };
